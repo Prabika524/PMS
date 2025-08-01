@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard - Fitness Tracker</title>
+    <style>
+        :root {
+            --sky-blue: #00BFFF;
+            --admin-blue: #481FED;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .profile {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .admin-title {
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--admin-blue);
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .nav-menu {
+            margin-top: 30px;
+        }
+
+        .nav-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-item.active {
+            background-color: var(--admin-blue);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: var(--admin-blue);
+            margin-top: 0;
+            font-size: 18px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
+        .edit-btn {
+            background-color: #FFA500;
+            color: white;
+        }
+
+        .update-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .save-btn {
+            background-color: var(--sky-blue);
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #FF0000;
+            color: white;
+        }
+
+        .exit-btn {
+            background-color: black;
+            color: white;
+            border: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        .attendance-select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile">
+            <img src="/images/admin-profile.jpg" alt="Admin Profile">
+            <div class="admin-title">Admin</div>
+        </div>
+        <div class="nav-menu">
+            <div class="nav-item" onclick="showSection('daily-report')">Daily Report</div>
+            <div class="nav-item" onclick="showSection('view-history')">View History</div>
+
+        </div>
+        <a th:href="@{/logout}" class="action-btn exit-btn">EXIT</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Daily Report Section -->
+        <div class="section" id="daily-report">
+            <h2 class="section-title">Manage Daily Reports</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Username</th>
+                    <th>Trainer</th>
+                    <th>Attendance</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>01/01/2023</td>
+                    <td>user1</td>
+                    <td>trainer1</td>
+                    <td>
+                        <select class="attendance-select">
+                            <option value="PRESENT">Present</option>
+                            <option value="ABSENT">Absent</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="button-group" style="justify-content: flex-end;">
+                <button type="button" class="action-btn update-btn">Update</button>
+                <button type="button" class="action-btn edit-btn">Edit</button>
+                <button type="button" class="action-btn exit-btn" onclick="window.location.href='/'">Exit</button>
+            </div>
+        </div>
+
+        <!-- View History Section (Hidden by default) -->
+        <div class="section" id="view-history" style="display: none;">
+            <h2 class="section-title">View History</h2>
+
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 15px;">Filter by:</label>
+                <select style="padding: 8px; border-radius: 4px;">
+                    <option>Username</option>
+                    <option>Trainer</option>
+                    <option>Date Range</option>
+                </select>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Username</th>
+                    <th>Trainer</th>
+                    <th>Activity</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>01/01/2023</td>
+                    <td>user1</td>
+                    <td>trainer1</td>
+                    <td>Cardio</td>
+                    <td>Present</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="button-group" style="justify-content: flex-end;">
+                <button type="button" class="action-btn delete-btn">Delete</button>
+
+                <button type="button" class="action-btn exit-btn" onclick="window.location.href='/'">Exit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show selected section
+        document.getElementById(sectionId).style.display = 'block';
+
+        // Update active tab
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register - Fitness Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .links {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+        .link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Register</h2>
+    <div th:if="${param.error}" class="error">
+        Username already exists!
+    </div>
+    <form th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password:</label>
+            <input type="password" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+            <label>Role:</label>
+            <select name="role">
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+                <option value="TRAINER">TRAINER</option>
+            </select>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <div class="links">
+        Already have an account? <a th:href="@{/login}" class="link">Login</a> or <a href="/" class="link">Exit</a>
+    </div>
+</div>
+</body>
+</html>
