@@ -23,4 +23,5 @@ public class ProgressTrackingService {
     public List<ProgressTracking> getProgressTrackingByUser(User user) {
         return progressTrackingRepository.findByUser(user);
     }
+
 }

@@ -234,7 +234,7 @@
     <div class="user-info">
       <div class="info-item">
         <div class="info-label">Date:</div>
-        <div class="info-value date-value" th:text="${#temporals.format(#temporals.createToday(), 'dd/MM/yyyy')}">DD/MM/YYYY</div>
+        <div class="user-title" th:text="${user.username}">User</div>
       </div>
 
       <div class="info-item">
@@ -254,7 +254,7 @@
       <div class="nav-item" onclick="showSection('progress-section')">Progress Tracking</div>
     </div>
 
-    <button class="btn exit-btn" style="width: 100%; margin-top: 30px;" onclick="window.location.href='/'">Exit</button>
+    <div class="user-title" th:text="${user.username}">User</div>
   </div>
 
   <!-- Main Content -->
@@ -269,7 +269,7 @@
           Focus on proper form to prevent injuries.
         </div>
         <div class="button-group">
-          <button type="button" class="btn exit-btn" onclick="window.location.href='/'">Exit</button>
+          <div class="user-title" th:text="${user.username}">User</div>
         </div>
       </div>
     </div>
@@ -297,7 +297,7 @@
           </div>
         </div>
         <div class="button-group">
-          <button type="button" class="btn exit-btn" onclick="window.location.href='/'">Exit</button>
+          <div class="user-title" th:text="${user.username}">User</div>
         </div>
       </div>
     </div>
